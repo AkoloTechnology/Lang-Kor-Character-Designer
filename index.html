@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Lang'Kor Character Designer</title>
+    <style>
+        #ability > div {
+            display: inline-block;
+        }
+        #jobs > div {
+            display: inline-block;
+            user-select: none;
+            cursor: pointer;
+        }
+        #jobs > div > p {
+            display: inline-block;
+        }
+    </style>
+  </head>
+  <body>
+    <h1>Lang'Kor Character Designer</h1>
+    <div id="ability">
+        <h2>Ability Scores</h2>
+        <div id="str">
+            <p>Strength</p>
+            <input type="number" value="0"/>
+        </div>
+        <div id="dex">
+            <p>Dexterity</p>
+            <input type="number" value="0"/>
+        </div>
+        <div id="con">
+            <p>Constitution</p>
+            <input type="number" value="0"/>
+        </div>
+        <div id="int">
+            <p>Intelligence</p>
+            <input type="number" value="0"/>
+        </div>
+        <div id="wis">
+            <p>Wisdom</p>
+            <input type="number" value="0"/>
+        </div>
+        <div id="chr">
+            <p>Charisma</p>
+            <input type="number" value="0"/>
+        </div>
+    </div>
+    <div id="jobs"></div>
+
+	<script>
+        window.onload = e => {
+            fetch("data.json").then(e => e.json().then(data => {
+                var jobs = document.querySelector("#jobs");
+                data.jobs.forEach(e => {
+                    var jobdiv = document.createElement("div");
+                    jobdiv.id = "job-" + e.name;
+                    var radio = document.createElement("input");
+                    radio.type = "radio";
+                    radio.name = "jobs";
+                    radio.value = e.name;
+                    jobdiv.append(radio);
+                    var jobtext = document.createElement("p");
+                    jobtext.innerHTML = e.name.toUpperCase();
+                    jobdiv.onclick = () => radio.checked = true;
+                    jobdiv.append(jobtext);
+                    jobs.append(jobdiv);
+                });
+                jobs.firstChild.querySelector("input").checked = true;
+            }));
+        };
+        var ability = {};
+        (['str','dex','con','int','wis','chr']).forEach(e => document.querySelector("#" + e + "> input").addEventListener("change", () =>
+            (['str','dex','con','int','wis','chr']).forEach(e => ability[e] = document.querySelector("#" + e + "> input").value)
+        ));
+    </script>
+  </body>
+</html>

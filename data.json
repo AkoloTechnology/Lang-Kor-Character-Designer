@@ -1,0 +1,17 @@
+{
+    "jobs": [
+        {
+            "name": "fisher",
+            "fishing": 5
+        }, {
+            "name": "woodcutter",
+            "woodcutting": 2   
+        }, {
+            "name": "fighter",
+            "sword": 9      
+        }, {
+            "name": "farmer",
+            "cultivate": 8
+        }
+    ]
+}
